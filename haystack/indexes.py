@@ -326,6 +326,16 @@ class SearchIndex(with_metaclass(DeclarativeMetaclass, threading.local)):
         """
         return None
 
+    def get_indexed_field(self):
+        """
+        Get the field name that represents the last indexed date of that document.
+
+        If specified, this is used by the reindex command to store the date of 
+        the last index. 
+        """
+        return None
+
+
     def should_update(self, instance, **kwargs):
         """
         Determine if an object should be updated in the index.

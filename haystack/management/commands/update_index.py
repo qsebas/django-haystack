@@ -114,6 +114,11 @@ def do_update(backend, index, qs, start, end, total, verbosity=1, commit=True,
             # If going to try again, sleep a bit before
             time.sleep(2 ** retries)
 
+    if retries < max_retries:
+        indexed_field = index.get_indexed_field() 
+        if indexed_field:
+            small_cache_qs.filter(id__in=current_qs).update(**{indexed_field: now()} )
+
     # Clear out the DB connections queries because it bloats up RAM.
     reset_queries()
 
